@@ -1,5 +1,8 @@
 package com.epam.mjc.stage0;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 /**
  * Here are the tasks for working with the arrays.
  * <p>
@@ -11,7 +14,7 @@ public class ArrayTasks {
      * Return a String[] array that will list all the seasons of the year, starting with winter.
      */
     public String[] seasonsArray() {
-
+        return new String[]{"winter", "spring", "summer", "autumn"};
     }
 
     /**
@@ -25,7 +28,11 @@ public class ArrayTasks {
      * length = 5  -> [1, 2, 3, 4, 5]
      */
     public int[] generateNumbers(int length) {
-
+        int[] nums = new int[length];
+        for (int i = 1; i <= length; i++) {
+            nums[i - 1] = i;
+        }
+        return nums;
     }
 
     /**
@@ -37,7 +44,11 @@ public class ArrayTasks {
      * arr = [5, -3, -4] -> sum = -2
      */
     public int totalSum(int[] arr) {
-
+        int sum = 0;
+        for (int i : arr) {
+            sum += i;
+        }
+        return sum;
     }
 
     /**
@@ -50,7 +61,20 @@ public class ArrayTasks {
      * arr = [5, -3, -4],   number = 10    ->  -1
      */
     public int findIndexOfNumber(int[] arr, int number) {
+        boolean is = false;
+        int index = 0;
 
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == number) {
+                index = i;
+                is = true;
+            }
+        }
+        if (is) {
+            return index;
+        } else {
+            return -1;
+        }
     }
 
     /**
@@ -63,13 +87,18 @@ public class ArrayTasks {
      * arr = ["pineapple", "apple", "pen"] -> ["pen", "apple", "pineapple"]
      */
     public String[] reverseArray(String[] arr) {
-
+        int length = arr.length;
+        String[] reversed = new String[length];
+        for (int i = 0; i < reversed.length; i++) {
+            reversed[i] = arr[length - i - 1];
+        }
+        return reversed;
     }
 
     /**
      * Return new int[] array obtained from arr int[] array
      * by choosing positive numbers only.
-     * P.S. 0 is not a positive number =)
+     * P.S. 0 is not a positive number (=)
      * <p>
      * Example:
      * <p>
@@ -78,7 +107,22 @@ public class ArrayTasks {
      * arr = [1, 2]         -> [1, 2]
      */
     public int[] getOnlyPositiveNumbers(int[] arr) {
+        int positivesCount = 0;
 
+        for (int number : arr) {
+            if (number > 0) positivesCount++;
+        }
+
+        int[] newArr = new int[positivesCount];
+        int positiveIndex = 0;
+
+        for (int number : arr) {
+            if (number > 0) {
+                newArr[positiveIndex++] = number;
+            }
+        }
+
+        return newArr;
     }
 
     /**
@@ -92,6 +136,11 @@ public class ArrayTasks {
      * arr = [[5, 4], [7]]       -> [[7], [4, 5]]
      */
     public int[][] sortRaggedArray(int[][] arr) {
+        Arrays.sort(arr, Comparator.comparingInt(a -> a.length));
 
+        for (int[] subs : arr) {
+            Arrays.sort(subs);
+        }
+        return arr;
     }
 }
