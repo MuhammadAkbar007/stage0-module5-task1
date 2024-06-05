@@ -1,8 +1,5 @@
 package com.epam.mjc.stage0;
 
-import java.util.Arrays;
-import java.util.Comparator;
-
 /**
  * Here are the tasks for working with the arrays.
  * <p>
@@ -136,11 +133,46 @@ public class ArrayTasks {
      * arr = [[5, 4], [7]]       -> [[7], [4, 5]]
      */
     public int[][] sortRaggedArray(int[][] arr) {
-        Arrays.sort(arr, Comparator.comparingInt(a -> a.length));
-
-        for (int[] subs : arr) {
-            Arrays.sort(subs);
+        for (int[] ints : arr) {
+            sortArray(ints);
         }
+        sortByLength(arr);
         return arr;
+    }
+
+    public static void sortArray(int[] arr) {
+        int n = arr.length;
+        boolean swapped;
+        for (int i = 0; i < n - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+            if (!swapped) break;
+        }
+    }
+
+    public static void sortByLength(int[][] arr) {
+        int n = arr.length;
+        boolean swapped;
+        for (int i = 0; i < n - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j].length > arr[j + 1].length) {
+                    // Swap arr[j] and arr[j + 1]
+                    int[] temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+            // If no two arrays were swapped by inner loop, then break
+            if (!swapped) break;
+        }
     }
 }
